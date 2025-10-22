@@ -1,0 +1,21 @@
+[GLOBAL]
+pants_version = "2.29.0"
+
+pants_ignore = [
+  "*__init__.py"
+]
+
+backend_packages = [
+  "pants.backend.python",
+]
+
+[python]
+enable_resolves = true
+interpreter_constraints = ["CPython==3.12.*"]
+pip_version = "latest"
+
+[python.resolves]
+python-default = "3rdparty/python/default.lock"
+
+[generate-lockfiles]
+diff = true
