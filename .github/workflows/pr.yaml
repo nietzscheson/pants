@@ -20,7 +20,7 @@ jobs:
       - name: Bootstrap Pants
         uses: pantsbuild/actions/init-pants@v9
         with:
-          # v5+ caches the setup-python usage automatically, so we don't need to specify it unless we want to control it, 
+          # v5+ caches the setup-python usage automatically, so we don't need to specify it unless we want to control it,
           # but we definitely don't pass pants-version here (it's in pants.toml).
           gha-cache-key: pants-cache-${{ runner.os }}-v0
 

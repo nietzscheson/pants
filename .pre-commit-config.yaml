@@ -1,0 +1,42 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: pants-fmt
+        name: Pants Format
+        entry: |
+          pants fmt ::
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: pants-lint
+        name: Pants Lint
+        entry: |
+          pants lint ::
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: pants-check
+        name: Pants Type Check
+        entry: |
+          pants check ::
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: pants-test
+        name: Run Tests
+        entry: |
+          pants test ::
+        language: system
+        pass_filenames: false
+        always_run: true
