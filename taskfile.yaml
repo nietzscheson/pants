@@ -1,0 +1,50 @@
+version: "3"
+
+tasks:
+  setup:
+    desc: "Instalar dependencias (incluye dev tools) con uv"
+    cmds:
+      - uv sync --group dev
+
+  services-up:
+    desc: "Levantar Postgres y Redis con Docker Compose"
+    cmds:
+      - docker compose up -d postgres redis
+
+  services-down:
+    desc: "Bajar Postgres y Redis (mantiene volumes)"
+    cmds:
+      - docker compose down
+
+  api:
+    desc: "Correr API FastAPI (dev, reload) en :8000"
+    cmds:
+      - uv run uvicorn squad.main:app --reload --host 0.0.0.0 --port 8000
+
+  api-debug:
+    desc: "Correr API con debugpy esperando attach en :5678"
+    cmds:
+      - uv run python -m debugpy --listen 5678 --wait-for-client -m uvicorn squad.main:app --reload --host 0.0.0.0 --port 8000
+
+  health:
+    desc: "Ping del healthcheck local"
+    cmds:
+      - curl -s localhost:8000/health
+
+  lint-fix:
+    desc: "Auto-fix imports/format/lint"
+    cmds:
+      - uv run pycln .
+      - uv run isort .
+      - uv run black .
+      - uv run ruff format .
+
+  deadcode:
+    desc: "Detectar código muerto (Vulture) evitando falsos positivos de Pydantic/FastAPI"
+    cmds:
+      - uv run vulture --config pyproject.toml
+
+  test:
+    desc: "Correr tests (pytest)"
+    cmds:
+      - uv run pytest

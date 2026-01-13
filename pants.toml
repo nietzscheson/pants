@@ -2,16 +2,23 @@
 pants_version = "2.29.0"
 
 pants_ignore = [
-  "*__init__.py"
 ]
 
 backend_packages = [
   "pants.backend.python",
+  "pants.backend.python.lint.black",
+  "pants.backend.python.lint.isort",
+  "pants.backend.experimental.python.lint.ruff.check",
+  "pants.backend.experimental.python.lint.ruff.format",
+  "pants.backend.python.typecheck.mypy",
 ]
+
+[source]
+root_patterns = ["/"]
 
 [python]
 enable_resolves = true
-interpreter_constraints = ["CPython==3.12.*"]
+interpreter_constraints = ["CPython>=3.13"]
 pip_version = "latest"
 
 [python.resolves]
