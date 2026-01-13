@@ -12,3 +12,6 @@ wheels/
 # Pants workspace files
 /.pants.d
 /dist/
+/.pants-cache/
+.pants
+.ruff_cache/

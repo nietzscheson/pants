@@ -1,0 +1,38 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  pants-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Bootstrap Pants
+        uses: pantsbuild/actions/init-pants@v9
+        with:
+          # v5+ caches the setup-python usage automatically, so we don't need to specify it unless we want to control it, 
+          # but we definitely don't pass pants-version here (it's in pants.toml).
+          gha-cache-key: pants-cache-${{ runner.os }}-v0
+
+      - name: Install dependencies
+        run: |
+          pip install uv
+          uv sync
+
+      - name: Lint check
+        run: |
+          pants check ::
+
+      - name: Run Tests
+        run: |
+          pants test ::
