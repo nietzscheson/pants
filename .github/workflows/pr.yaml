@@ -6,7 +6,12 @@ on:
 
 jobs:
   pants-build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout repository
@@ -36,3 +41,7 @@ jobs:
       - name: Run Tests
         run: |
           pants test ::
+
+      - name: Verify dependency installation only
+        run: |
+          uv pip check

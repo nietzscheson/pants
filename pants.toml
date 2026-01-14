@@ -22,7 +22,10 @@ interpreter_constraints = ["CPython>=3.13"]
 pip_version = "latest"
 
 [python.resolves]
-python-default = "3rdparty/python/default.lock"
+python-default = "3rdparty/lockfiles/default.lock"
+python-linux-cpu = "3rdparty/lockfiles/linux_cpu.lock"
+python-linux-gpu = "3rdparty/lockfiles/linux_gpu.lock"
+python-macos-cpu = "3rdparty/lockfiles/macos_cpu.lock"
 
 [generate-lockfiles]
 diff = true

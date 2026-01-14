@@ -24,4 +24,9 @@ dev = [
     "pytest-asyncio>=1.3.0",
     "ruff>=0.14.1",
     "vulture>=2.14",
+
+    # native-risk deps (must resolve everywhere)
+    "python-magic",
+    "lightgbm",
+    "pyodbc",
 ]
